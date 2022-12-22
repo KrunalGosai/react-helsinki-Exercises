@@ -1,7 +1,10 @@
 function StatisticsLine(props) {
 
     return (
-        <p><b>{props.name} :</b> {props.value}</p>
+        <tr>
+            <td><b>{props.name}</b></td>
+            <td>{props.value}</td>
+        </tr>
     )
 }
 
