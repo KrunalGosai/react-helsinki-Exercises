@@ -1,0 +1,45 @@
+title Notes 0.6
+
+browser -> server: HTTP Get https://studies.cs.helsinki.fi/exampleapp/spa
+server --> browser: html Code Response
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/main.css
+server --> browser: css Code Response 
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/spa.js
+server --> browser: javascript Code Response
+
+note over browser : 
+browser start execute js code 
+and send request to GET 
+data.json from server
+end note
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/data.json
+server --> browser: JSON Response Array of Objects
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/favicon.ico
+server --> browser: Html code response
+
+note over browser : 
+browser executes the event 
+handler that renders stores 
+json data into variable called 
+notes after that execute redrawNotes
+function which will display notes
+end note
+
+note over browser : 
+user put new note text in input
+and click on save button to save note
+which will push new note in globle variable
+also calls further post request
+end note
+
+browser -> server: HTTP POST Request With FormData \nhttps://studies.cs.helsinki.fi/exampleapp/new_note_spa \n with json payload including note text and datetimestamp
+
+note over server : 
+server will save note data received
+end note
+
+server --> browser: return success response with success message

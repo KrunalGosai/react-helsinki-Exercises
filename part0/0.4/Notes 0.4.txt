@@ -1,0 +1,67 @@
+title Notes 0.4
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/notes
+server --> browser: html Code Response
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/main.css
+server --> browser: css Code Response 
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/main.js
+server --> browser: javascript Code Response
+
+note over browser : 
+browser start execute js code 
+and send request to GET 
+data.json from server
+end note
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/data.json
+server --> browser: JSON Response Array of Objects
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/favicon.ico
+server --> browser: Html code response
+
+note over browser : 
+browser executes the event 
+handler that renders notes 
+from json reponse to display
+end note
+
+note over browser : 
+user put new note text in input
+and click on save button to save note
+which calls further post request
+end note
+
+browser -> server: HTTP POST Request With FormData https://studies.cs.helsinki.fi/exampleapp/new_note
+
+note over server : 
+server will save note data received
+end note
+
+server --> browser: return response code 302 redirection for page reload
+
+note over browser : 
+page reload 
+end note
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/notes
+server --> browser: html Code Response
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/main.css
+server --> browser: css Code Response 
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/main.js
+server --> browser: javascript Code Response
+
+note over browser : 
+browser start execute js code 
+and send request to GET 
+data.json from server
+end note
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/exampleapp/data.json
+server --> browser: JSON Response Array of Objects
+
+browser -> server: HTTP Get Request https://studies.cs.helsinki.fi/favicon.ico
+server --> browser: Html code response
