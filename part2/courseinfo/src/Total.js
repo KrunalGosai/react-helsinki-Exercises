@@ -1,6 +1,6 @@
 function Total(props) {
     return (
-        <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
+        <p><b>Total of {props.parts.reduce((value,part) => { return value += part.exercises },0)} exercises</b></p>
     );
 }
 export default Total;
