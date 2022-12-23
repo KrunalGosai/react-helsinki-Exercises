@@ -14,6 +14,7 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const points = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
   const [copy, setCopy] = useState({...points})
+  const [maxInd, setMaxInd] = useState(0);
 
   const displayRandomAnecdotes = () => {
     let newIndex = getRandomInt(0,6)
@@ -29,14 +30,24 @@ const App = () => {
     copy[selected] = copy[selected]+1;
     setCopy({...copy});
     console.log(copy);
+    let copyValues = Object.values(copy);
+    console.log("copyValues",copyValues)
+    let ind = copyValues.indexOf(Math.max(...copyValues));
+    console.log("max value",Math.max(...copyValues))
+    setMaxInd(ind);
+    console.log("maxInd",maxInd)
   }
 
   return (
     <div>
+      <h1>Anecdotes of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {copy[selected]} Votes</p>
       <button onClick={voteAnecdotes}>Vote</button>
       <button onClick={displayRandomAnecdotes}>Next Anecdotes</button>
+      <h1>Anecdotes with most votes</h1>
+      <p>{anecdotes[maxInd]}</p>
+      <p>has {copy[maxInd]} Votes</p>
     </div>
   )
 }
