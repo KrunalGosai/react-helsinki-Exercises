@@ -11,11 +11,25 @@ const App = () => {
   }
   const submitForm = (event) => {
     event.preventDefault()
+
+    // check for duplicate names if exist already show alert and skip further process
+    if(runDuplicateValidation()) {
+      alert(`${newName} is already added to phonebook`);
+      setNewName('');
+      return;
+    }
+
     const nameData = {
       name: newName
     }
-    
     setPersons(persons.concat(nameData));
+    setNewName('');
+  }
+
+  const runDuplicateValidation = () => {
+    return persons.filter((person) => {
+      return person.name.toLowerCase().trim() == newName.toLowerCase().trim();
+    }).length > 0;
   }
 
   return (
