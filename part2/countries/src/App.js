@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 
 function App() {
 
-  const [filterValue, setFilterValue] = useState('')
-  const [countries, setCountries] = useState([])
-  const [displayCountries, setDisplayCountries] = useState([])
+  const [filterValue, setFilterValue] = useState('');
+  const [countries, setCountries] = useState([]);
+  const [displayCountries, setDisplayCountries] = useState([]);
+  const [countryData, setCountryData] = useState({});
 
   useEffect(() => {
     loadCountriesData();
@@ -15,6 +16,9 @@ function App() {
     setFilterValue(event.target.value);
     let filteredData = countries.filter(country => country.name.official.toLowerCase().includes(event.target.value));
     setDisplayCountries(filteredData);
+    if (filteredData.length == 1) {
+      setCountryData(filteredData[0]);
+    } else setCountryData({})
   }
 
   const loadCountriesData = () => {
@@ -27,8 +31,10 @@ function App() {
     <div>
       <label> Find Countries </label>
       <input type="text" value={filterValue} onChange={filterValueChanged} />
-      <p> Number of Countries : {countries.length}</p>
-      <p> Display Countries : {displayCountries.length}</p>
+      <div>-------------------------------------------------------------------------</div>
+      <div> Number of Countries : {countries.length}</div>
+      <div> Display Countries : {displayCountries.length}</div>
+      <div>-------------------------------------------------------------------------</div>
       {displayCountries.length > 10
         ?
         (<p>Too many matches, specify another filter.</p>)
@@ -37,32 +43,42 @@ function App() {
           ?
           <p>No matching country found</p>
           :
-          (displayCountries.length > 1
-            ?
-            displayCountries.map((country) => { return (<p key={country.cca3}>{country.name.official}</p>) })
-            :
+          (
             displayCountries.map((country) => {
-              let url = country.flags.png;
               return (
-              <div key={country.cca3}>
-                <h1>{country.name.common}</h1>
-                <p>Official Name : {country.name.official}</p>
-                <p>Capital : {country.capital.join(',')}</p>
-                <p>Area : {country.area}</p>
-                <h4>Languages:</h4>
-                <ul>
-                  {Object.keys(country.languages).map(key =>
-                    <li key={key}>{country.languages[key]}</li>)}
-                </ul>
-                <p>Flag : </p>
-                <img src={url} alt="flag" />
-              </div>)
+                <div key={country.cca3}>
+                  <label> {country.name.official} </label>
+                  <button onClick={(e) => setCountryData(countryData.cca3 == country.cca3 ? {} : country)}>{countryData.cca3 == country.cca3 ? 'hide' : 'show'}</button>
+                </div>
+              )
             })
           )
         )
-
       }
-    </div>
+      {
+        countryData.cca3
+          ?
+          (
+            < div key={countryData.cca3}>
+              <h1>{countryData.name.common}</h1>
+              <p>Official Name : {countryData.name.official}</p>
+              <p>Capital : {countryData.capital.join(',')}</p>
+              <p>Area : {countryData.area}</p>
+              <h4>Languages:</h4>
+              <ul>
+                {Object.keys(countryData.languages).map(key =>
+                  <li key={key}>{countryData.languages[key]}</li>)}
+              </ul>
+              <p>Flag : </p>
+              <img src={countryData.flags.png} alt="flag" />
+            </div>
+
+          )
+          :
+          <></>
+      }
+
+    </div >
   );
 }
 
