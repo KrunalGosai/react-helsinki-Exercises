@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
@@ -50,6 +51,19 @@ const App = () => {
     return persons.filter((person) => person.name.toLowerCase().includes(filterValue.toLowerCase()));
   }
   const displayContacts = filterValue.trim() == '' ? persons : getFilteredValue(); 
+
+  const getPersonsList = () => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log(response.data)
+        setPersons(response.data);
+      })
+
+  }
+  useEffect(() => {
+    getPersonsList()
+  },[])
 
   return (
     <div>
